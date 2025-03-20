@@ -3,7 +3,7 @@ import fitz
 import os
 
 
-#change file name
+# Change file to pdf with face images
 daylio_file ="\daylio_export_2025_03_06.pdf"
 
 def extract_img_from_pdf(daylio_file):
@@ -27,7 +27,7 @@ def extract_img_from_pdf(daylio_file):
             print("no images")
 
         for image_index in range(len(image_list)):
-            if (image_list[image_index][3]) > 250:
+            if (image_list[image_index][3]) > 250: # image has to be larger than a certain size (filters icons)
                 img = pdf_file.extract_image(image_list[image_index][0])
                 with open(f"image.{img['ext']}", "wb") as imgout:
                     imgout.write(img["image"])

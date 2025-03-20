@@ -3,15 +3,23 @@ import os
 import dlib
 import cv2
 
-# from pythonimagesearch tutorial 
-from imutils import face_utils, resize
 from extract_img_from_pdf import extract_img_from_pdf
 
-# get files in my dir
+# from pythonimagesearch tutorial 
+from imutils import face_utils, resize
+
+
+# Change these to control parameters
+daylio_file = "\daylio_export_2025_03_19.pdf" #ensure in working dir
 path = os.getcwd()
+# image resolution
+desiredFaceHeight = 651
+desiredFaceWidth = 365
+
+# get files in dir (default path = cwd)
 if not any("daylio_image" in file for file in os.listdir(path)):
       #ensure daylio export photos
-      extract_img_from_pdf(daylio_file="\daylio_export_2025_03_19.pdf")
+      extract_img_from_pdf(daylio_file)
 images = []
 for file in os.listdir(path):
         if file.endswith(".jpeg") and "image" in file:
@@ -27,7 +35,7 @@ images = sorted(images, key=get_file_index)
 p = "shape_predictor_68_face_landmarks.dat"
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor(p)
-fa = face_utils.FaceAligner(predictor, desiredFaceHeight=651, desiredFaceWidth=365)
+fa = face_utils.FaceAligner(predictor, desiredFaceHeight=desiredFaceHeight, desiredFaceWidth=desiredFaceWidth)
 
 failed_face = []
 
